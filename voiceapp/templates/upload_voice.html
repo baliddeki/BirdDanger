@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+
+<head>
+    <title>Upload Bird Sound</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('{% static "bird_forest.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #69c77e;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .bird-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src='{% static "bird_image.png" %}' alt="Bird Logo" class="bird-logo">
+        <h1>Upload Bird Sound</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="audio_file" class="custom-file-upload">
+                    Choose Audio File
+                </label>
+                <input type="file" id="audio_file" name="audio_file" accept="audio/*" required onchange="displayFileName()">
+                <p class="file-name" id="file_name"></p>
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+        <audio controls id="audio_player" style="display: none;">
+            <source id="audio_source" src="#" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function displayFileName() {
+            const input = document.getElementById("audio_file");
+            const fileNameDisplay = document.getElementById("file_name");
+            const audioPlayer = document.getElementById("audio_player");
+            const audioSource = document.getElementById("audio_source");
+
+            const fileName = input.files[0].name;
+            fileNameDisplay.innerText = "Selected File: " + fileName;
+            audioSource.src = URL.createObjectURL(input.files[0]);
+            audioPlayer.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
