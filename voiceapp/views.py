@@ -14,7 +14,7 @@ def upload_voice(request):
         voice_note.save()
 
         return render(request, 'result.html', {'predicted_class': predicted_class})
-    return render(request, 'upload_voice.html')
+    return render(request, 'index.html')  # Changed from 'upload_voice.html' to 'index.html'
 
 def voice_list(request):
     '''function for listing voice notes'''   

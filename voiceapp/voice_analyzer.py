@@ -26,7 +26,7 @@ class VoiceAnalyzer:
         predictions = self.model.predict(input_data)
     
         predicted_class_index = np.argmax(predictions)
-        class_names = ['bird_alarm_calls', 'bird_duet_calls', 'other_bird_calls']
+        class_names = ['This is an alarm call', 'This is a mating call', 'This is neither a mating nor an alarm call']
         predicted_class = class_names[predicted_class_index]
     
         return predicted_class
