@@ -1,1 +1,1 @@
-web: gunicorn BirdDanger.wsgi.application
+web: gunicorn BirdDanger.wsgi:application --log-file -
