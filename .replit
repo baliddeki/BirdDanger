@@ -1,0 +1,13 @@
+modules = ["nodejs-20", "web", "python-3.12"]
+run = "gunicorn BirdDanger.wsgi:application --log-file -"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "gunicorn BirdDanger.wsgi:application --log-file -"]
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+exposeLocalhost = true
